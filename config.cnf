@@ -1,0 +1,12 @@
+{
+	"email":"<user email>",
+	"password":"<user password>",
+	"domains":[
+		{
+			"name":"<a domain>",
+			"subdomains":[
+				"<a subdomain>"
+			]
+		}
+	]
+}
