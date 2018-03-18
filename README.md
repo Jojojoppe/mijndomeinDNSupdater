@@ -10,13 +10,15 @@ Installing the mijndomein DNS updater is as simply as downloading the main pytho
 ```
 sudo pip3 install selenium
 ```
-Furthermore chromedriver is needed. Installing chromium-browser should be enough. If not, try to find it in the repositories of your distribution. On arch chromedriver is in the AUR:
+Furthermore a webdriver is needed like Chromedriver, Firefox and PhantomJS. Since this is differently on many distributions and sometimes even impossible on some machines (like raspberry pi: only Firefox works), you need to figure out yourself how to install that!
+
+When running on a headless machine, `pyvirtualdisplay` is needed. Furtunately this is simply installed using pip:
 ```
-yaourt -S chromedriver
+sudo pip3 install pyvirtualdisplay
 ```
 
 ## Configuration
-The mijndomein DNS updater uses a JSON file as configuration. In that file the user email and password must be provided. For each domain the user wants to update the DNS recods the corresponding subdomains must be mentioned.
+The mijndomein DNS updater uses a JSON file as configuration. In that file the user email and password must be provided. For each domain the user wants to update the DNS recods the corresponding subdomains must be mentioned. Furthermore the using webdriver can be selected with the `driver` tag. One can choose between `chrome`, `firefox`, and `phantomjs`. Currently Chromedriver and PhantomJS work.
 ```
 {
 	"email":"<user email>",
@@ -28,7 +30,9 @@ The mijndomein DNS updater uses a JSON file as configuration. In that file the u
 				"<a subdomain>"
 			]
 		}
-	]
+	],
+	"driver":"<a driver>",
+	"display":<boolean: display?>
 }
 
 ```
@@ -36,3 +40,6 @@ The mijndomein DNS updater uses a JSON file as configuration. In that file the u
 ## Usage
 Just run `./main` to run the updater with the standard configuration file `config.cnf`. If another configuration file is wanted, this can be done using `./main -c path/to/file` or `./main --config path/to/file`.
 This information is also given with `./main -help` of `./main --help`.
+
+## NOTE
+Build pass testing is not yet done for the Firefox and PhantomJS webdrivers!
