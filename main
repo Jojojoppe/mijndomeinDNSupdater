@@ -8,6 +8,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import NoSuchElementException
 
 # Command-line argument parser
 parser = argparse.ArgumentParser(description="Update MijnDomijn DNS entries.")
@@ -51,7 +52,7 @@ def main(args=None):
 
     # Get ip
     print("+ Getting ip")
-    driver.get("https://myexternalip.com/raw")
+    driver.get("https://ipv4.myexternalip.com/raw")
     myip = driver.find_element_by_xpath("//html//body").text
     print("\t>", myip)
 
@@ -82,12 +83,25 @@ def main(args=None):
 
         for subdomain in domain['subdomains']:
             print("- Subdomain", subdomain)
-            driver.find_element_by_xpath("//div[text()='" + subdomain + "']").click()
-            elem = driver.find_element_by_xpath("//div[text()='" + subdomain + "']/following::input[2]")
-            elem.clear()
-            elem.send_keys(myip)
-            driver.find_element_by_xpath("//div[text()='" + subdomain + "']/following::div[6]").click()
-            print("\t> Done")
+
+            try:
+                if subdomain == '':
+                    driver.find_element_by_xpath("//div[text()='1']").click()
+                    elem = driver.find_element_by_xpath("//div[text()='1']/following::input[3]")
+                    elem.clear()
+                    elem.send_keys(myip)
+                    driver.find_element_by_xpath("//div[text()='1']/following::div[8]").click()
+                    print("\t> Done")
+                else:
+                    driver.find_element_by_xpath("//div[text()='" + subdomain + "']").click()
+                    elem = driver.find_element_by_xpath("//div[text()='" + subdomain + "']/following::input[2]")
+                    elem.clear()
+                    elem.send_keys(myip)
+                    driver.find_element_by_xpath("//div[text()='" + subdomain + "']/following::div[6]").click()
+                    print("\t> Done")
+            except NoSuchElementException:
+                print("\t> Error: Subdomain not found")
+                continue
 
         print("+ Save settings")
         driver.execute_script("window.confirm = function(){return true;}");
