@@ -52,7 +52,7 @@ def main(args=None):
 
     # Get ip
     print("+ Getting ip")
-    driver.get("https://ipv4.myexternalip.com/raw")
+    driver.get("https://myexternalip.com/raw")
     myip = driver.find_element_by_xpath("//html//body").text
     print("\t>", myip)
 
@@ -70,6 +70,7 @@ def main(args=None):
 
     for domain in cnf['domains']:
         print("+ Domain", domain['name'])
+        WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, "selectdomainbox_replacement")))
         elem = driver.find_element_by_id('selectdomainbox_replacement')
         elem.clear()
         elem.send_keys(domain['name'])
