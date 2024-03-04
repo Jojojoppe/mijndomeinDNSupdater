@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mijndomeindnsupdater_Jojojoppe"
+version = "2.0.0"
+authors = [
+  { name="Joppe Blondel", email="mail@joppeb.nl" },
+]
+description = "MijnDomein python API"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/Jojojoppe/sampleprojectmijndomeinDNSupdater"
+Issues = "https://github.com/pypa/sampleprojectmijndomeinDNSupdater/issues"
