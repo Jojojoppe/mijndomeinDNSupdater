@@ -1,0 +1,17 @@
+{
+    "email": "<user email>",
+    "password": "<user password>",
+    "domains": [
+        {
+            "name": "<domain name>",
+            "updates": [
+                {
+                    "type": "<A/AAA/CNAME/MX/TXT>",
+                    "subdomain": "<subdomain.domain>",
+                    "function": "<static/getip>",
+                    "value": "<static value>"
+                }
+            ]
+        }
+    ]
+}

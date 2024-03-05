@@ -15,6 +15,9 @@ class MijnDomein:
         self.password = password
         self.domainNameInfo = {}
 
+    def __del__(self):
+        self.browser.close()
+
     def login(self) -> None:
         self.browser.get('https://auth.mijndomein.nl/login')
         assert 'Mijndomein' in self.browser.title

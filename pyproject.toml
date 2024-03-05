@@ -16,7 +16,15 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
+dependencies = [
+    "requests",
+    "selenium",
+    "geckodriver",
+]
 
 [project.urls]
 Homepage = "https://github.com/Jojojoppe/sampleprojectmijndomeinDNSupdater"
 Issues = "https://github.com/pypa/sampleprojectmijndomeinDNSupdater/issues"
+
+[project.scripts]
+dnsupdater = "mijndomeindnsupdater_Jojojoppe:main"
