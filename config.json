@@ -8,7 +8,7 @@
                 {
                     "type": "<A/AAA/CNAME/MX/TXT>",
                     "subdomain": "<subdomain.domain>",
-                    "function": "<static/getip>",
+                    "function": "<static/getip/getip6>",
                     "value": "<static value>"
                 }
             ]

@@ -37,6 +37,9 @@ def main(args=None):
             elif update['function'] == 'getip':
                 ip = requests.get('https://api.ipify.org').content.decode('utf8')
                 md.update(domain['name'], update['type'], update['subdomain'], ip)
+            elif update['function'] == 'getip6':
+                ip = requests.get('https://api6.ipify.org').content.decode('utf8')
+                md.update(domain['name'], update['type'], update['subdomain'], ip)
             else:
                 print('Unknown function type')
         print(md.domainNameInfo)

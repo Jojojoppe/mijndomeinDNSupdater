@@ -36,8 +36,8 @@ class MijnDomein:
     def getDomainNameInfo(self) -> list[str]:
         self.browser.get('https://www.mijndomein.nl/account/product')
         WebDriverWait(self.browser, TIMEOUT).until(EC.presence_of_element_located((By.CSS_SELECTOR, "div[class*='ProductOverviewBlockTitle']")))
-        productNames = self.browser.find_elements(By.CSS_SELECTOR, "div[class*='ProductOverviewBlockTitle']")
         productAccordions = self.browser.find_elements(By.CSS_SELECTOR, "span[class*='AccordionIconWrapper']")
+        productNames = self.browser.find_elements(By.CSS_SELECTOR, "div[class*='ProductOverviewBlockTitle']")
         self.domainNameInfo = {}
         names = []
 
@@ -46,11 +46,17 @@ class MijnDomein:
             print("--->", name)
             names.append(name)
 
-        for name in names:
+        for i, name in enumerate(names):
+            self.browser.get('https://www.mijndomein.nl/account/product')
+            WebDriverWait(self.browser, TIMEOUT).until(EC.presence_of_element_located((By.CSS_SELECTOR, "div[class*='ProductOverviewBlockTitle']")))
+            productAccordions = self.browser.find_elements(By.CSS_SELECTOR, "span[class*='AccordionIconWrapper']")
+            productAccordions[i].click()
+            WebDriverWait(self.browser, TIMEOUT).until(EC.presence_of_element_located((By.CSS_SELECTOR, "div[class*='ProductOverviewBlockItemstyles']")))
+            btn = self.browser.find_elements(By.CSS_SELECTOR, "span[class*='ProductOverviewBlockItemstyles']")
+            btn[1].click()
             # Get package ID
-            self.browser.get(f'https://www.mijndomein.nl/account/product/dmp/{name}')
-            WebDriverWait(self.browser, TIMEOUT).until(EC.presence_of_element_located((By.XPATH, "//span[.='DNS instellen']")))
-            btn = self.browser.find_element(By.XPATH, "//span[.='DNS instellen']")
+            WebDriverWait(self.browser, TIMEOUT).until(EC.presence_of_element_located((By.XPATH, "//button[text()='DNS instellen']")))
+            btn = self.browser.find_element(By.XPATH, "//button[text()='DNS instellen']")
             btn.click()
             time.sleep(2) # TODO add a wait statement
             url = self.browser.current_url
